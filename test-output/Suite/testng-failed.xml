@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+  <listeners>
+    <listener class-name="coreFramework.CoreListener"/>
+  </listeners>
+  <test name="Test(failed)">
+    <classes>
+      <class name="takamol.TC18_TakamolE2E_OrphanMarriageBenefit">
+        <methods>
+          <include name="beforeSuite"/>
+          <include name="tearDown"/>
+          <include name="testCaseFlow"/>
+        </methods>
+      </class> <!-- takamol.TC18_TakamolE2E_OrphanMarriageBenefit -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [Suite] -->
