@@ -17,10 +17,8 @@ import org.openqa.selenium.WebElement;
 
 
 import coreFramework.CommonWebActions;
-import coreFramework.ExcelUtilForLinkNavs;
 import coreFramework.ORUtil;
 import coreFramework.ReportUtil;
-import coreFramework.SikullixDemo;
 
 public class Takamol {
 	
@@ -1233,11 +1231,11 @@ public class Takamol {
 		String strFilename[] = str.split("/.");
 		System.out.println("str----" + str);
 		System.out.println(strFilename[0]);
-		try {
-			SikullixDemo.fileAttachment(browse, name, open, fileLoc);
-		} catch (Exception ex) {
-
-		}
+//		try {
+//			SikullixDemo.fileAttachment(browse, name, open, fileLoc);
+//		} catch (Exception ex) {
+//
+//		}
 		
 
 	}
@@ -1253,11 +1251,11 @@ public class Takamol {
 		String strFilename[] = str.split("/.");
 		System.out.println("str----" + str);
 		System.out.println(strFilename[0]);
-		try {
-			SikullixDemo.fileAttachmentTakamol( name, open, fileLoc);
-		} catch (Exception ex) {
-
-		}
+//		try {
+//			SikullixDemo.fileAttachmentTakamol( name, open, fileLoc);
+//		} catch (Exception ex) {
+//
+//		}
 		
 
 	}

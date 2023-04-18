@@ -22,7 +22,6 @@ import java.util.Set;
 
 import javax.swing.plaf.synth.SynthOptionPaneUI;
 
-import org.apache.http.conn.params.ConnConnectionParamBean;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -40,10 +39,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.security.Credentials;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.sikuli.script.FindFailed;
-import org.sikuli.script.Match;
-import org.sikuli.script.Pattern;
-import org.sikuli.script.Screen;
 import org.testng.Assert;
 
 import com.google.common.primitives.Ints;
@@ -384,19 +379,7 @@ public class AUT {
 			strTipWin = itr.next();
 		}
 		CommonWebActions.switchToWindow(strTipWin);
-		String strTipWinTitle = CommonWebActions.wd.getTitle().toString();
 		
-		
-		
-		if (strTipWinTitle.equals(ExcelUtil.getDataFromExcel("TS01", "Page Title"))) {
-			ReportUtil.reporterEvent("pass",
-					"Available Accessories Link page title is verified" + CommonWebActions.captureScreenshotAsBase64());
-			
-		} else {
-			ReportUtil.reporterEvent("fail", "Available Accessories Link page title is not verified"
-					+ CommonWebActions.captureScreenshotAsBase64());
-			
-		}
 		CommonWebActions.wd.close();
         Thread.sleep(2000);
 		CommonWebActions.switchToWindow(strParentWin);
@@ -410,10 +393,6 @@ public class AUT {
 		return strCaseNumber;
 	}
 
-
-	public static void updateResultToExcel(int rownum, int column, String status) {
-		ExcelUtil.updateResultToExcel(rownum, column, AUT.path, status);
-	}
 
 	
 		

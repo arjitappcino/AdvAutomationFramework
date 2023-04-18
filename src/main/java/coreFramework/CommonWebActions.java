@@ -40,7 +40,6 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.sikuli.script.FindFailed;
 import org.testng.Assert;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -92,7 +91,8 @@ public class CommonWebActions extends ReportUtil {
 			int num1 = Integer.parseInt(x);
 			int num2 = Integer.parseInt(y);
 			System.out.println("Set Browser Dimesion--->" + num1+ ","+ num2);
-			String url = ORUtil.getConfigValue(strEnvURL);
+//			String url = ORUtil.getConfigValue(strEnvURL);
+			String url = strEnvURL;
 			String implicitWait = ORUtil.getConfigValue("Implicit_Wait");
 			int waitTime = Integer.parseInt(implicitWait);
 
@@ -112,6 +112,10 @@ public class CommonWebActions extends ReportUtil {
 				options.setExperimentalOption("prefs", prefs);
              //   options.addArguments("--headless");
 				WebDriverManager.chromedriver().setup();
+			    options.addArguments("--disable-infobars");
+			    options.addArguments("--ignore-ssl-errors=yes");
+			    options.addArguments("--ignore-certificate-errors");
+			    options.addArguments("--remote-allow-origins=*");
 				wd = new ChromeDriver(options);
 
 			}else if(browserType.equalsIgnoreCase("edge")){
@@ -458,8 +462,6 @@ public static void webClickActionClass(WebElement objName){
 		WebElement lwebElement = null;
 		try {
 			lwebElement = getWebElement(objName);
-			strTextToSend = ExcelUtil.getDataFromExcel(onlyTestCaseName,strTextToSend);
-			//lwebElement.clear();
 			lwebElement.sendKeys(strTextToSend);
 			ReportUtil.reporterEvent("info", "Text [ " + strTextToSend + " ] entered in the web element [ " + objName + " ]" );
 			
@@ -496,7 +498,6 @@ public static void webClickActionClass(WebElement objName){
 		boolean lResultFlag = false;
 		try {			
 			WebElement lwebElement = getWebElement(objName);
-			expectedInnerText = ExcelUtil.getDataFromExcel(onlyTestCaseName,expectedInnerText);
 			System.out.println("Expected UserName: "+expectedInnerText);
 			String actualInnerText = lwebElement.getText();
 			System.out.println("Actual Name: "+actualInnerText);
@@ -527,7 +528,6 @@ public static void webClickActionClass(WebElement objName){
 	 */
 	public static void webVerifyPageTitle(String expectedPageTitle, Boolean continueExecution){
 		try{
-			expectedPageTitle = ExcelUtil.getDataFromExcel(onlyTestCaseName,expectedPageTitle);
 			String actualTitle = wd.getTitle();
 			if(expectedPageTitle.equals(actualTitle)){
 				ReportUtil.reporterEvent("pass", " Actual page title [ " + actualTitle + " ] same as expected title [ " + expectedPageTitle + " ]" + captureScreenshotAsBase64());
@@ -556,7 +556,6 @@ public static void webClickActionClass(WebElement objName){
 		WebElement lwebElement = null;
 		try {
 			lwebElement = getWebElement(objName);
-			strEncodedTextToSend = ExcelUtil.getDataFromExcel(onlyTestCaseName,strEncodedTextToSend);
 			String decodedValue = EncryptUtil.decryption(strEncodedTextToSend);
 			lwebElement.sendKeys(decodedValue);
 			ReportUtil.reporterEvent("info", "Secure Text [ " + strEncodedTextToSend + " ] entered in the web element [ " + objName + " ]" );

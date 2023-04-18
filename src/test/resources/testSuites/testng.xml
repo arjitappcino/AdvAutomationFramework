@@ -3,54 +3,22 @@
 <suite name="Suite">
 
 	<listeners>
-		<listener class-name="coreFramework.CoreListener">
-		</listener>
+		<listener class-name="coreFramework.CoreListener"></listener>
 	</listeners>
-	
-	<test name="Test">
-		
-			<!-- <packages>s
-			</packages> -->
-				<classes> 
-       
-		
-  		 
-       
-       <class name = "takamol.TC15_TakamolE2E_VocationalTraining"></class> 
-       
-       
- <!--   <class name = "takamol.TC01_TakamolE2E_LORServiceRequest"></class>   
-        <class name = "takamol.TC02_TakamolE2E_IICServiceRequest"></class>	
-        <class name = "takamol.TC03_01_TakamolE2E_FosterFamiliesProgram"></class> 
-        <class name = "takamol.TC03_02_TakamolE2E_FriendlyFamiliesProgram"></class>
-        <class name = "takamol.TC03_03_TakamolE2E_MyRoleModelProgram"></class>	
-        <class name = "takamol.TC04_TakamolE2E_DisabilityAssessment"></class>
-        <class name = "takamol.TC05_TakamolE2E_IssueOfDisabledScense"></class>
-        <class name = "takamol.TC06_TakamolE2E_HostingaOrphanService"></class>
-        <class name = "takamol.TC07_TakomalE2E_DisabilityIDcard"></class> 
-		<class name = "takamol.TC08_TakamolE2E_DisabilityClassificationServiceForUniversityStudents"></class>
-		<class name = "takamol.TC09_TakamolE2E_StateFeeBearingProgram"></class> 
-        <class name = "takamol.TC10_TakamolE2E_DomesticLaborFees"></class>
-        <class name = "takamol.TC11_TakamolE2E_MedicalOrSupportiveDevicesService"></class>	
-        <class name = "takamol.TC12_TakamolE2E_FinancialAidRequest"></class> 
-        <class name = "takamol.TC13_TakamolE2E_ObjectionService"></class>
-        <class name = "takamol.TC14_TakamolE2E_HomeSocialCare"></class>
-        <class name = "takamol.TC15_TakamolE2E_VocationalTraining"></class> 
-        <class name = "takamol.TC16_TakamolE2E_InvestmentAccount"></class>
-        <class name = "takamol.TC17_TakamolE2E_OnlineAppointmentBooking"></class>
-        <class name = "takamol.TC18_TakamolE2E_OrphanMarriageBenefit"></class>
-        <class name = "takamol.TC19_TakamolE2E_SubsidyRequestForFosterFamily"></class>
-        <class name = "takamol.TC20_TakamolE2E_EndOfIncubation"></class>
-		<class name = "takamol.TC21_TakamolE2E_SocialRecords"></class>	
-		<class name = "takamol.TC22_TakamolE2E_PassportServiceAppian"></class>
-		<class name = "takamol.TC23_TakamolE2E_SupportServiceIDCard"></class>
-		<class name = "takamol.TC24_TakamolE2E_SupportService_ObjectionService"></class>
-		<class name = "takamol.TC25_TakamolE2E_RequestToIssueIdentificationPapers"></class>  --> 
-		
-		
-		 
-	</classes>
-			
 
-	</test> <!-- Test -->
-</suite> <!-- Suite -->
+	<test name="Test">
+
+		<parameter name="TestCaseName" value="TC02_TakamolE2E_IICServiceRequest" />
+		<parameter name="Url"
+			value="https://takamol-qa.appcino-tech.com:433/rehab/auth/login" />
+		<parameter name="UserName" value="automationtaheel@gmail.com" />
+		<parameter name="Password" value="UXdlcnR5QDEyMw==" />
+		<classes>
+
+			<class name="takamol.TC02_TakamolE2E_IICServiceRequest"></class>
+
+		</classes>
+
+
+	</test>
+</suite> 

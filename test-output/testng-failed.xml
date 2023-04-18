@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite guice-stage="DEVELOPMENT" name="Failed suite [Suite]">
+<suite name="Failed suite [Suite]">
+  <parameter name="UserName" value="automationtaheel@gmail.com"/>
+  <parameter name="TestCaseName" value="TC02_TakamolE2E_IICServiceRequest"/>
+  <parameter name="Url" value="https://takamol-qa.appcino-tech.com:433/rehab/auth/login"/>
+  <parameter name="Password" value="UXdlcnR5QDEyMw=="/>
   <listeners>
     <listener class-name="coreFramework.CoreListener"/>
   </listeners>
   <test name="Test(failed)">
+    <parameter name="UserName" value="automationtaheel@gmail.com"/>
+    <parameter name="TestCaseName" value="TC02_TakamolE2E_IICServiceRequest"/>
+    <parameter name="Url" value="https://takamol-qa.appcino-tech.com:433/rehab/auth/login"/>
+    <parameter name="Password" value="UXdlcnR5QDEyMw=="/>
     <classes>
-      <class name="takamol.TC18_TakamolE2E_OrphanMarriageBenefit">
+      <class name="takamol.TC02_TakamolE2E_IICServiceRequest">
         <methods>
           <include name="beforeSuite"/>
-          <include name="tearDown"/>
           <include name="testCaseFlow"/>
         </methods>
-      </class> <!-- takamol.TC18_TakamolE2E_OrphanMarriageBenefit -->
+      </class> <!-- takamol.TC02_TakamolE2E_IICServiceRequest -->
     </classes>
   </test> <!-- Test(failed) -->
 </suite> <!-- Failed suite [Suite] -->

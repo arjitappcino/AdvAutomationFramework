@@ -2,31 +2,53 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="366660" started-at="2023-03-01T06:53:24Z" finished-at="2023-03-01T06:59:31Z">
+  <suite name="Suite" duration-ms="135853" started-at="2023-04-18T06:29:22Z" finished-at="2023-04-18T06:31:38Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="366660" started-at="2023-03-01T06:53:24Z" finished-at="2023-03-01T06:59:31Z">
-      <class name="takamol.TC15_TakamolE2E_VocationalTraining">
-        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:takamol.TC15_TakamolE2E_VocationalTraining@551aa95a]" name="beforeSuite" is-config="true" duration-ms="1765" started-at="2023-03-01T12:23:24Z" finished-at="2023-03-01T12:23:26Z">
+    <test name="Test" duration-ms="135853" started-at="2023-04-18T06:29:22Z" finished-at="2023-04-18T06:31:38Z">
+      <class name="takamol.TC02_TakamolE2E_IICServiceRequest">
+        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:takamol.TC02_TakamolE2E_IICServiceRequest@18eed359]" name="beforeSuite" is-config="true" duration-ms="24" started-at="2023-04-18T11:59:22Z" finished-at="2023-04-18T11:59:22Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeSuite -->
-        <test-method status="PASS" signature="testCaseFlow()[pri:0, instance:takamol.TC15_TakamolE2E_VocationalTraining@551aa95a]" name="testCaseFlow" duration-ms="364860" started-at="2023-03-01T12:23:26Z" finished-at="2023-03-01T12:29:31Z">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- testCaseFlow -->
-        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:takamol.TC15_TakamolE2E_VocationalTraining@551aa95a]" name="tearDown" is-config="true" duration-ms="2" started-at="2023-03-01T12:29:31Z" finished-at="2023-03-01T12:29:31Z">
+        <test-method status="PASS" signature="testCaseFlow(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:takamol.TC02_TakamolE2E_IICServiceRequest@18eed359]" name="testCaseFlow" duration-ms="124119" started-at="2023-04-18T11:59:22Z" finished-at="2023-04-18T12:01:26Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testCaseFlow status=SUCCESS method=TC15_TakamolE2E_VocationalTraining.testCaseFlow()[pri:0, instance:takamol.TC15_TakamolE2E_VocationalTraining@551aa95a] output={null}]]]>
+                <![CDATA[TC02_TakamolE2E_IICServiceRequest]]>
+              </value>
+            </param>
+            <param index="1">
+              <value>
+                <![CDATA[https://takamol-qa.appcino-tech.com:433/rehab/auth/login]]>
+              </value>
+            </param>
+            <param index="2">
+              <value>
+                <![CDATA[automationtaheel@gmail.com]]>
+              </value>
+            </param>
+            <param index="3">
+              <value>
+                <![CDATA[UXdlcnR5QDEyMw==]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCaseFlow -->
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:takamol.TC02_TakamolE2E_IICServiceRequest@18eed359]" name="tearDown" is-config="true" duration-ms="11700" started-at="2023-04-18T12:01:26Z" finished-at="2023-04-18T12:01:38Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testCaseFlow status=SUCCESS method=TC02_TakamolE2E_IICServiceRequest.testCaseFlow(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:takamol.TC02_TakamolE2E_IICServiceRequest@18eed359] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-      </class> <!-- takamol.TC15_TakamolE2E_VocationalTraining -->
+      </class> <!-- takamol.TC02_TakamolE2E_IICServiceRequest -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->
 </testng-results>
