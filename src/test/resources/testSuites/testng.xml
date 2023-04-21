@@ -2,17 +2,26 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite">
 
+	<!-- MAIL PARAMETERS -->
+	<parameter name="toEmailId" value="arjit.yadav@appcino.com" />
+	<parameter name="ccEmailId" value="yadavarjit@gmail.com" />
+	<parameter name="fromEmailId" value="appcinoqa@gmail.com" />
+	<parameter name="senderPassword" value="eypulhncecqpbjkk" />
+	
 	<listeners>
 		<listener class-name="coreFramework.CoreListener"></listener>
 	</listeners>
 
 	<test name="Test">
 
+		<!-- TEST PARAMETERS -->
+		<parameter name="Browser" value="CHROME" />
 		<parameter name="TestCaseName" value="TC02_TakamolE2E_IICServiceRequest" />
 		<parameter name="Url"
 			value="https://takamol-qa.appcino-tech.com:433/rehab/auth/login" />
 		<parameter name="UserName" value="automationtaheel@gmail.com" />
 		<parameter name="Password" value="UXdlcnR5QDEyMw==" />
+
 		<classes>
 
 			<class name="takamol.TC02_TakamolE2E_IICServiceRequest"></class>

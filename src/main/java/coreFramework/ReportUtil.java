@@ -20,6 +20,7 @@ public class ReportUtil extends CoreListener {
 	static ExtentTest logger;
 	public static String onlyTestCaseName;
 	public static String testPackageName;
+	public static String reportPath = null;
 
 	/**
 	   * This method is used to initiate the reporting
@@ -41,7 +42,7 @@ public class ReportUtil extends CoreListener {
 			testPackageName = packageNameDetails[0];
 			onlyTestCaseName = packageNameDetails[1];
 
-			String reportPath = currDir + "/report-output/" + testPackageName + "/" + testCaseNameOnly + "_" + lTimeStamp + ".html";
+			reportPath = "./report-output/htmlReport/" + testCaseNameOnly + "_" + lTimeStamp + ".html";
 			
 			report=new ExtentReports(reportPath);
 			logger=report.startTest(onlyTestCaseName, testCaseNameOnly);

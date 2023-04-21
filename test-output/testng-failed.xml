@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="Failed suite [Suite]">
-  <parameter name="UserName" value="automationtaheel@gmail.com"/>
-  <parameter name="TestCaseName" value="TC02_TakamolE2E_IICServiceRequest"/>
-  <parameter name="Url" value="https://takamol-qa.appcino-tech.com:433/rehab/auth/login"/>
-  <parameter name="Password" value="UXdlcnR5QDEyMw=="/>
-  <listeners>
-    <listener class-name="coreFramework.CoreListener"/>
-  </listeners>
-  <test name="Test(failed)">
-    <parameter name="UserName" value="automationtaheel@gmail.com"/>
-    <parameter name="TestCaseName" value="TC02_TakamolE2E_IICServiceRequest"/>
-    <parameter name="Url" value="https://takamol-qa.appcino-tech.com:433/rehab/auth/login"/>
-    <parameter name="Password" value="UXdlcnR5QDEyMw=="/>
+<suite name="Failed suite [Default suite]">
+  <test name="Default test(failed)">
     <classes>
       <class name="takamol.TC02_TakamolE2E_IICServiceRequest">
         <methods>
@@ -21,5 +10,5 @@
         </methods>
       </class> <!-- takamol.TC02_TakamolE2E_IICServiceRequest -->
     </classes>
-  </test> <!-- Test(failed) -->
-</suite> <!-- Failed suite [Suite] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

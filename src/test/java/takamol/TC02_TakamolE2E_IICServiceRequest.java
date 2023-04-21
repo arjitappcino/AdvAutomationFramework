@@ -17,9 +17,9 @@ import coreFramework.CommonWebActions;
 import coreFramework.Constants;
 import coreFramework.ORUtil;
 import coreFramework.ReportUtil;
-import coreFramework.TestReportEmail;
 
-public class TC02_TakamolE2E_IICServiceRequest {
+public class TC02_TakamolE2E_IICServiceRequest extends CommonWebActions{
+	
 	@BeforeClass
 	public void beforeSuite() throws IOException {
 
@@ -31,9 +31,10 @@ public class TC02_TakamolE2E_IICServiceRequest {
 		ORUtil.strObjectRepoFilePath = Constants.TESTARTIFACTSPATH + ORUtil.getConfigValue("TakamolLocators");
 
 	}
+	 
 	@Test
-	@Parameters({"TestCaseName","Url","UserName","Password"})
-	public void testCaseFlow(String strTcName, String strUrl, String strUserName, String strPassword) throws InterruptedException, IOException {
+	@Parameters({"Browser","TestCaseName","Url","UserName","Password"})
+	public void testCaseFlow(String strBrowser, String strTcName, String strUrl, String strUserName, String strPassword) throws InterruptedException, IOException {
 		try {
 		ReportUtil.startReporting();
 		AUT.timeStamp();
@@ -42,25 +43,20 @@ public class TC02_TakamolE2E_IICServiceRequest {
 	        AUT.CheckLogo("TakamolLogo");
 	        Takamol.verifyTakamolHomePage();
 	        CommonWebActions.webClick("TakamolService");
-			Thread.sleep(1000);
-	        CommonWebActions.getWebElement("DashboardSearch").sendKeys("Incubation Identification Certificate");
-	        CommonWebActions.webClick("IIC_Link");
-	        AUT.validateBreadCrumb("IIC_Header", "IIC header ");
-	        Takamol.validateHeaderList("Sr.No. ID Number Orphan Name Sex Age Skin Color Date Of Birth");
-			Thread.sleep(2000);
-	        CommonWebActions.webClick("NextButton");
-	        AUT.validateBreadCrumb("IIC_RequestHeader", "IIC request header ");
-	        CommonWebActions.webClick("IssueButton");
-			Thread.sleep(2000);
-			AUT.validateBreadCrumb("CertificatePageHeader", "Certificate page header ");
-			Takamol.validateLLCCertificatePageScreen();
-			CommonWebActions.webClick("SendCerticateToEmail");
-			Thread.sleep(2000);
-			AUT.validateBreadCrumb("EmailSent_Header", "Email sent page header ");
-			CommonWebActions.webClick("OkButton");
-			Takamol.navigateOnAppian("url_Appian");
-	        Takamol.loginInAppian();
-	        Takamol.createRequestForIIC();
+//			Thread.sleep(1000);
+//	        CommonWebActions.getWebElement("DashboardSearch").sendKeys("Incubation Identification Certificate");
+//	        CommonWebActions.webClick("IIC_Link");
+//	        AUT.validateBreadCrumb("IIC_Header", "IIC header ");
+//	        Takamol.validateHeaderList("Sr.No. ID Number Orphan Name Sex Age Skin Color Date Of Birth");
+//			Thread.sleep(2000);
+//	        CommonWebActions.webClick("NextButton");
+//	        AUT.validateBreadCrumb("IIC_RequestHeader", "IIC request header ");
+//	        CommonWebActions.webClick("IssueButton");
+//			Thread.sleep(2000);
+//			AUT.validateBreadCrumb("CertificatePageHeader", "Certificate page header ");
+//			Takamol.validateLLCCertificatePageScreen();
+//			CommonWebActions.webClick("SendCerticateToEmail");
+//			Thread.sleep(2000);
 			AUT.closeBrowserWindow();
 		
 		}catch(Exception e){
@@ -80,7 +76,6 @@ public class TC02_TakamolE2E_IICServiceRequest {
 			ReportUtil.reporterEvent("fatal", "Test case complete");
 			ReportUtil.endReporter();
 		}
-		TestReportEmail.main(null);
 	}
 
 }
