@@ -6,15 +6,31 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.Message;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -34,29 +50,20 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.server.DriverFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.ITestResult;
+import org.testng.Reporter;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.Parameters;
 
+import com.aventstack.extentreports.Status;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
-import jakarta.activation.DataHandler;
-import jakarta.activation.DataSource;
-import jakarta.activation.FileDataSource;
-import jakarta.mail.Authenticator;
-import jakarta.mail.BodyPart;
-import jakarta.mail.Message;
-import jakarta.mail.MessagingException;
-import jakarta.mail.Multipart;
-import jakarta.mail.PasswordAuthentication;
-import jakarta.mail.Session;
-import jakarta.mail.Transport;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeBodyPart;
-import jakarta.mail.internet.MimeMessage;
-import jakarta.mail.internet.MimeMultipart;
 
 /**
  * This class consists of all the common methods required to perform actions on
@@ -72,13 +79,30 @@ public class CommonWebActions extends ReportUtil {
 	static boolean isElementDisplayed;
 	static JavascriptExecutor javaScriptDriver;
 	public static ChromeDriverService service;
-	
+
 	private static int passedTestCasesCount = 0;
 
 	private static int failedTestCasesCount = 0;
 
 	private static int skippedTestCasesCount = 0;
+	private static String currentDirectory = ".";
+	private static String suiteName;
 
+	private static String browserType;
+
+	private static String osType;
+
+	private static String fileSeperator = System.getProperty("file.separator");
+
+	private static final String TEST_SCREENSHOT_PATH = currentDirectory + fileSeperator + "TestsScreenshots";
+
+	private static final String TEST_OUTPUT_PATH = currentDirectory + fileSeperator + "TestOutput";
+
+	private static final String TEST_SCREENSHOT_PATH_ZIP = currentDirectory + fileSeperator + "TestsScreenshots.zip";
+
+	private static final String TEST_OUTPUT_PATH_ZIP = currentDirectory + fileSeperator + "TestOutput.zip";
+	
+	private static final Logger LOGGER = Logger.getLogger(CommonWebActions.class.getName());
 	/**
 	 * This method is used to launch the application.
 	 * 
@@ -1071,23 +1095,29 @@ public class CommonWebActions extends ReportUtil {
 		List<WebElement> lst = sel.getOptions();
 		System.out.println(lst);
 	}
-	
+
+	@Parameters({ "toEmailId", "ccEmailId", "fromEmailId", "senderPassword" })
 	@AfterSuite(alwaysRun = true)
-	@Parameters({"toEmailId", "ccEmailId", "fromEmailId", "senderPassword" })
-	public void sendEmail(String toEmailId, String ccEmailId, String fromEmailId, String senderPassword) {
-		
-		String host = "smtp.gmail.com";
-		int port = 587;
+	public void sendMail(String toEmailId, String ccEmailId, String fromEmailId, String senderPassword) {
+		ZipFolder appZip = new ZipFolder();
+		appZip.setSourceFolder(TEST_OUTPUT_PATH);
+		appZip.setOutputFolder(TEST_OUTPUT_PATH_ZIP);
+		appZip.generateFileList(new File(TEST_OUTPUT_PATH));
+		appZip.zipIt();
 
-		Properties props = new Properties();
-		props.put("mail.smtp.host", host);
-		props.put("mail.smtp.port", port);
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.ssl.trust", host);
+		ZipFolder appZip1 = new ZipFolder();
+		appZip1.setSourceFolder(TEST_SCREENSHOT_PATH);
+		appZip1.setOutputFolder(TEST_SCREENSHOT_PATH_ZIP);
+		appZip1.generateFileList(new File(TEST_SCREENSHOT_PATH));
+		appZip1.zipIt();
 
-		Session session = Session.getInstance(props, new Authenticator() {
-			@Override
+		Properties properties = new Properties();
+		properties.put("mail.smtp.host", "smtp.gmail.com");
+		properties.put("mail.smtp.port", "587");
+		properties.put("mail.smtp.auth", "true");
+		properties.put("mail.smtp.starttls.enable", "true");
+
+		Session session = Session.getDefaultInstance(properties, new javax.mail.Authenticator() {
 			protected PasswordAuthentication getPasswordAuthentication() {
 				return new PasswordAuthentication(fromEmailId, senderPassword);
 			}
@@ -1095,150 +1125,160 @@ public class CommonWebActions extends ReportUtil {
 
 		try {
 			MimeMessage message = new MimeMessage(session);
-
 			message.setFrom(new InternetAddress(fromEmailId));
-
 			message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmailId));
+			message.setSubject(" Automation Test Report");
 
-			message.setSubject("Automation Test Report");
+			BodyPart messageBodyPart1 = new MimeBodyPart();
+			messageBodyPart1.setContent(createBodyForTheMail(), "text/html; charset=utf-8");
 
-			BodyPart messageBodyPart = new MimeBodyPart();
-			
-			MimeBodyPart htmlPart = new MimeBodyPart();
+			MimeBodyPart messageBodyPart2 = new MimeBodyPart();
+			String filename1 = TEST_OUTPUT_PATH_ZIP;
+			DataSource dataSource1 = new FileDataSource(filename1);
+			messageBodyPart2.setDataHandler(new DataHandler(dataSource1));
+			messageBodyPart2.setFileName("TestOutput.zip");
 
-			String htmlBody = tableHTML();
-			
+			MimeBodyPart messageBodyPart3 = new MimeBodyPart();
+			String filename2 = TEST_SCREENSHOT_PATH_ZIP;
+			DataSource dataSource2 = new FileDataSource(filename2);
+			messageBodyPart3.setDataHandler(new DataHandler(dataSource2));
+			messageBodyPart3.setFileName("TestsScreenshots.zip");
+
 			Multipart multipart = new MimeMultipart();
-
-			multipart.addBodyPart(messageBodyPart);
-			htmlPart.setContent(htmlBody, "text/html");
-			String filename = ReportUtil.reportPath;
-			
-			String zipFilePath = ZipFolder.zipIt(filename, System.getProperty("user.dir")+"\\report-output\\zipFolder");
-			DataSource zipFolder = new FileDataSource(zipFilePath);
-			messageBodyPart.setDataHandler(new DataHandler(zipFolder));
-			messageBodyPart.setFileName(new File(zipFilePath).getName());
-			multipart.addBodyPart(messageBodyPart);
+			multipart.addBodyPart(messageBodyPart1);
+			multipart.addBodyPart(messageBodyPart2);
+			multipart.addBodyPart(messageBodyPart3);
 			message.setContent(multipart);
-
 			Transport.send(message);
-			System.out.println("Email with attachment sent successfully.");
-		} catch (MessagingException mex) {
-			mex.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("EMAIL SENT SUCCESSFUL");
+		} catch (Exception ex) {
+			System.out.println("Exception: "+ex);
+		}
+
+	}
+	
+	@AfterMethod(alwaysRun = true)
+	public void getResult(ITestResult result) {
+		if (result.getStatus() == ITestResult.FAILURE) {
+			ReportUtil.reporterEvent("fail", result.getMethod().getMethodName());
+			ReportUtil.reporterEvent("fail", result.getThrowable().toString());
+//			String screenshotPath;
+//			try {
+//				screenshotPath = getScreenshot(result.getMethod().getMethodName());
+//				logger.addScreenCaptureFromPath(screenshotPath);
+//			} catch (IOException e) {
+//				LOGGER.info(e.getMessage());
+//			}
+			failedTestCasesCount++;
+		} else if (result.getStatus() == ITestResult.SKIP) {
+			ReportUtil.reporterEvent("fail", result.getMethod().getMethodName());
+			skippedTestCasesCount++;
+		} else if (result.getStatus() == ITestResult.SUCCESS) {
+			passedTestCasesCount++;
 		}
 	}
 
-	public static String tableHTML() {
-		String tableHTML = null;
+	private String createBodyForTheMail() {
+		
+		String os = System.getProperty("os.name");
+		String browserName = "CHROME";
+		String suiteName = "Appcino Automation-QA";
+
+		StringBuilder sb = new StringBuilder();
+		sb.append("Dear Team,");
+		sb.append("<br />");
+		sb.append("<br />");
+		sb.append("Your test suite has just finished its execution. Here is the summary report.");
+		sb.append("<br />");
+		sb.append("<br />");
+		sb.append("<table width=\"600\" border=\"1\">");
+		sb.append("<tr>");
+		sb.append("<td><b>");
+		sb.append("Host Name");
+		sb.append("</b></td>");
+		sb.append("<td>");
 		try {
-			String os = System.getProperty("os.name");
-			String browserName = "CHROME";
-			String suiteName = "Appcino Automation-QA";
-
-			StringBuilder sb = new StringBuilder();
-			sb.append("Dear Team,");
-			sb.append("<br />");
-			sb.append("<br />");
-			sb.append("Your test suite has just finished its execution. Here is the summary report.");
-			sb.append("<br />");
-			sb.append("<br />");
-			sb.append("<table width=\"600\" border=\"1\">");
-			sb.append("<tr>");
-			sb.append("<td><b>");
-			sb.append("Host Name");
-			sb.append("</b></td>");
-			sb.append("<td>");
-			try {
-				sb.append(InetAddress.getLocalHost().getHostName().toUpperCase());
-			} catch (UnknownHostException e) {
-				e.printStackTrace();
-			}
-			sb.append("</td>");
-			sb.append("</tr>");
-
-			if (browserName != null) {
-				sb.append("<tr>");
-				sb.append("<td><b>");
-				sb.append("Operating System");
-				sb.append("</b></td>");
-				sb.append("<td>");
-				sb.append(System.getProperty("os.name").toUpperCase());
-				sb.append("</td>");
-				sb.append("</tr>");
-
-				sb.append("<tr>");
-				sb.append("<td><b>");
-				sb.append("Browser Name");
-				sb.append("</b></td>");
-				sb.append("<td>");
-				sb.append(browserName);
-				sb.append("</td>");
-				sb.append("</tr>");
-			}
-
-			if (os != null) {
-				sb.append("<tr>");
-				sb.append("<td><b>");
-				sb.append("Device Type");
-				sb.append("</b></td>");
-				sb.append("<td>");
-				sb.append(os);
-				sb.append("</td>");
-				sb.append("</tr>");
-			}
-
-			sb.append("<tr>");
-			sb.append("<td><b>");
-			sb.append("Suite Name");
-			sb.append("</b></td>");
-			sb.append("<td>");
-			sb.append(suiteName);
-			sb.append("</td>");
-			sb.append("</tr>");
-
-			sb.append("<tr>");
-			sb.append("<td><b>");
-			sb.append("Result:-");
-			sb.append("</b></td>");
-			sb.append("</tr>");
-
-			sb.append("<tr>");
-			sb.append("<td>");
-			sb.append("<font color=\"green\">");
-			sb.append("Pass : " + passedTestCasesCount);
-			sb.append("</font>");
-			sb.append("</td>");
-			sb.append("<td>");
-			sb.append("<font color=\"red\">");
-			sb.append("Fail : " + failedTestCasesCount);
-			sb.append("</font>");
-			sb.append("</td>");
-			sb.append("<td>");
-			sb.append("<font color=\"orange\">");
-			sb.append("Skip : " + skippedTestCasesCount);
-			sb.append("</font>");
-			sb.append("</td>");
-			sb.append("</tr>");
-			sb.append("</table>");
-
-			sb.append("<br />");
-			sb.append("This email was sent automatically by Appcino System. Please do not reply.");
-			sb.append("<br />");
-			sb.append("<br />");
-			sb.append("Thanks,");
-			sb.append("<br />");
-			sb.append("Appcino");
-
-			tableHTML = String.format(sb.toString());
-
-		} catch (Exception e) {
+			sb.append(InetAddress.getLocalHost().getHostName().toUpperCase());
+		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
+		sb.append("</td>");
+		sb.append("</tr>");
+
+		if (browserName != null) {
+			sb.append("<tr>");
+			sb.append("<td><b>");
+			sb.append("Operating System");
+			sb.append("</b></td>");
+			sb.append("<td>");
+			sb.append(System.getProperty("os.name").toUpperCase());
+			sb.append("</td>");
+			sb.append("</tr>");
+
+			sb.append("<tr>");
+			sb.append("<td><b>");
+			sb.append("Browser Name");
+			sb.append("</b></td>");
+			sb.append("<td>");
+			sb.append(browserName);
+			sb.append("</td>");
+			sb.append("</tr>");
+		}
+
+		if (os != null) {
+			sb.append("<tr>");
+			sb.append("<td><b>");
+			sb.append("Device Type");
+			sb.append("</b></td>");
+			sb.append("<td>");
+			sb.append(os);
+			sb.append("</td>");
+			sb.append("</tr>");
+		}
+
+		sb.append("<tr>");
+		sb.append("<td><b>");
+		sb.append("Suite Name");
+		sb.append("</b></td>");
+		sb.append("<td>");
+		sb.append(suiteName);
+		sb.append("</td>");
+		sb.append("</tr>");
+
+		sb.append("<tr>");
+		sb.append("<td><b>");
+		sb.append("Result:-");
+		sb.append("</b></td>");
+		sb.append("</tr>");
+
+		sb.append("<tr>");
+		sb.append("<td>");
+		sb.append("<font color=\"green\">");
+		sb.append("Pass : " + passedTestCasesCount);
+		sb.append("</font>");
+		sb.append("</td>");
+		sb.append("<td>");
+		sb.append("<font color=\"red\">");
+		sb.append("Fail : " + failedTestCasesCount);
+		sb.append("</font>");
+		sb.append("</td>");
+		sb.append("<td>");
+		sb.append("<font color=\"orange\">");
+		sb.append("Skip : " + skippedTestCasesCount);
+		sb.append("</font>");
+		sb.append("</td>");
+		sb.append("</tr>");
+		sb.append("</table>");
+
+		sb.append("<br />");
+		sb.append("This email was sent automatically by Appcino System. Please do not reply.");
+		sb.append("<br />");
+		sb.append("<br />");
+		sb.append("Thanks,");
+		sb.append("<br />");
+		sb.append("Appcino");
+
+		String tableHTML = String.format(sb.toString());
 		return tableHTML;
-
 	}
-
 }

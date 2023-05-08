@@ -42,7 +42,7 @@ public class TC02_TakamolE2E_IICServiceRequest extends CommonWebActions{
 			AUT.login(strUrl,strUserName,strPassword);	
 	        AUT.CheckLogo("TakamolLogo");
 	        Takamol.verifyTakamolHomePage();
-	        CommonWebActions.webClick("TakamolService");
+//	        CommonWebActions.webClick("TakamolService");
 //			Thread.sleep(1000);
 //	        CommonWebActions.getWebElement("DashboardSearch").sendKeys("Incubation Identification Certificate");
 //	        CommonWebActions.webClick("IIC_Link");
