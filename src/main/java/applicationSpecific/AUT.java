@@ -95,44 +95,32 @@ public class AUT {
 	 */
 	public static void login(String strEnvURL, String strUserName, String strPassword) {
 		try {
-
 			CommonWebActions.launch(strEnvURL);
-			Thread.sleep(1000);
-			CommonWebActions.webClick("LanguageIcon");
-			Thread.sleep(1000);
-			CommonWebActions.webClick("English");
-			CommonWebActions.webExplicitWait("LoginId", 180);
-			CommonWebActions.webExists(CommonWebActions.getWebElement("LoginId"));
-			CommonWebActions.webExplicitWait("LoginId", 180);
-			CommonWebActions.webClick("LoginId");
-			CommonWebActions.webSet("LoginId", strUserName);
-			Thread.sleep(1000);
-			CommonWebActions.webClick("LoginPassword");
-			CommonWebActions.webSecureSet("LoginPassword", strPassword);
-			CommonWebActions.webClick("LoginButtonFirst");
 			Thread.sleep(2000);
-			CommonWebActions.webClick("VerificationTextBox");
+			CommonWebActions.webClick("AcceptButton");
 			Thread.sleep(2000);
-			CommonWebActions.getWebElement("VerificationTextBox").sendKeys("123456");
-			Thread.sleep(3000);
-			CommonWebActions.webClick("LoginButtonSecond");
-			Thread.sleep(3000);
-			CommonWebActions.webVerifyPageTitle("PageTitle", true);
-			CommonWebActions.webExplicitWait("UserNameText", 180);
+			CommonWebActions.webExplicitWait("Appian_UnTextBox", 180);
+			CommonWebActions.webExists(CommonWebActions.getWebElement("Appian_UnTextBox"));
+			CommonWebActions.webExplicitWait("Appian_UnTextBox", 180);
+			CommonWebActions.webClick("Appian_UnTextBox");
+			CommonWebActions.webSet("Appian_UnTextBox", strUserName);
+			Thread.sleep(1000);
+			CommonWebActions.webClick("Appian_PwdTextBox");
+			CommonWebActions.webSet("Appian_PwdTextBox", strPassword);
+			CommonWebActions.webClick("LoginButton");
+			Thread.sleep(8000);
+	
+			CommonWebActions.webClick("BlogButton");
+			Thread.sleep(8000);
 			
-			String expectedUserName ="Automation Services Taheel Test";
-			String actualUserName = CommonWebActions.getWebElement("UserNameText").getText();
-			//String actualUserName=CommonWebActions.wd.findElement(By.xpath("//div[text()='Automation Services Taheel Test']")).getText();
-			if (actualUserName.contains(expectedUserName)) {
-
-				ReportUtil.reporterEvent("pass", "Login Successful - UserName name displayed");
-			} else {
-
-				ReportUtil.reporterEvent("fail", "Unable to login successfully - UserName not matched");
-
-			}
-
+			CommonWebActions.webClick("UserProfile");
+			Thread.sleep(3000);
 			
+			CommonWebActions.webClick("LogoutButton");
+			Thread.sleep(3000);
+			
+			CommonWebActions.webClick("AcceptButton");
+			Thread.sleep(2000);
 
 		} catch (Exception e) {
 			e.printStackTrace();

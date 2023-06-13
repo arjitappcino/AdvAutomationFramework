@@ -3,12 +3,12 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="takamol.TC02_TakamolE2E_IICServiceRequest">
+      <class name="scripts.AutomationDemo">
         <methods>
           <include name="beforeSuite"/>
           <include name="testCaseFlow"/>
         </methods>
-      </class> <!-- takamol.TC02_TakamolE2E_IICServiceRequest -->
+      </class> <!-- scripts.AutomationDemo -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

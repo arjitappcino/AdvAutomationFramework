@@ -152,7 +152,7 @@ public class CommonWebActions extends ReportUtil {
 				prefs.put("profile.default_content_setting_values.notifications", 2);
 				ChromeOptions options = new ChromeOptions();
 				options.setExperimentalOption("prefs", prefs);
-				options.addArguments("--headless");
+//				options.addArguments("--headless");
 				WebDriverManager.chromedriver().setup();
 				options.addArguments("--disable-infobars");
 				options.addArguments("--ignore-ssl-errors=yes");
@@ -1138,19 +1138,19 @@ public class CommonWebActions extends ReportUtil {
 			messageBodyPart2.setDataHandler(new DataHandler(dataSource1));
 			messageBodyPart2.setFileName("TestOutput.zip");
 
-			MimeBodyPart messageBodyPart3 = new MimeBodyPart();
-			String filename2 = TEST_SCREENSHOT_PATH_ZIP;
-			DataSource dataSource2 = new FileDataSource(filename2);
-			messageBodyPart3.setDataHandler(new DataHandler(dataSource2));
-			messageBodyPart3.setFileName("TestsScreenshots.zip");
+//			MimeBodyPart messageBodyPart3 = new MimeBodyPart();
+//			String filename2 = TEST_SCREENSHOT_PATH_ZIP;
+//			DataSource dataSource2 = new FileDataSource(filename2);
+//			messageBodyPart3.setDataHandler(new DataHandler(dataSource2));
+//			messageBodyPart3.setFileName("TestsScreenshots.zip");
 
 			Multipart multipart = new MimeMultipart();
 			multipart.addBodyPart(messageBodyPart1);
 			multipart.addBodyPart(messageBodyPart2);
-			multipart.addBodyPart(messageBodyPart3);
+//			multipart.addBodyPart(messageBodyPart3);
 			message.setContent(multipart);
 			Transport.send(message);
-			System.out.println("EMAIL SENT SUCCESSFUL");
+			System.out.println("Your Execution Report has been shared over the mail. Please have a look!");
 		} catch (Exception ex) {
 			System.out.println("Exception: "+ex);
 		}

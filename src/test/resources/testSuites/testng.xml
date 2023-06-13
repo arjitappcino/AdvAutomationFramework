@@ -15,16 +15,16 @@
 	<test name="Test">
 
 		<!-- TEST PARAMETERS -->
-		<parameter name="Browser" value="CHROME" />
-		<parameter name="TestCaseName" value="TC02_TakamolE2E_IICServiceRequest" />
+		<!-- <parameter name="Browser" value="CHROME" /> -->
+		<parameter name="TestCaseName" value="AutomationDemo" />
 		<parameter name="Url"
-			value="https://takamol-qa.appcino-tech.com:433/rehab/auth/login" />
-		<parameter name="UserName" value="automationtaheel@gmail.com" />
-		<parameter name="Password" value="UXdlcnR5QDEyMw==" />
+			value="https://pjjb.appian.community/suite/sites/nexus-intranet" />
+		<parameter name="UserName" value="demo_user" />
+		<parameter name="Password" value="demouser1" />
 
 		<classes>
 
-			<class name="takamol.TC02_TakamolE2E_IICServiceRequest"></class>
+			<class name="scripts.AutomationDemo"></class>
 
 		</classes>
 

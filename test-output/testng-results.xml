@@ -2,58 +2,64 @@
 <testng-results skipped="0" failed="0" total="1" passed="1">
   <reporter-output>
   </reporter-output>
-  <suite name="Suite" duration-ms="19782" started-at="2023-04-21T10:22:19Z" finished-at="2023-04-21T10:22:39Z">
+  <suite name="Suite" duration-ms="42964" started-at="2023-06-08T13:56:44Z" finished-at="2023-06-08T13:57:26Z">
     <groups>
     </groups>
-    <test name="Test" duration-ms="19782" started-at="2023-04-21T10:22:19Z" finished-at="2023-04-21T10:22:39Z">
-      <class name="takamol.TC02_TakamolE2E_IICServiceRequest">
-        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:[TC02_TakamolE2E_IICServiceRequest passed=0 failed=0 skipped=0]]" name="beforeSuite" is-config="true" duration-ms="22" started-at="2023-04-21T15:52:19Z" finished-at="2023-04-21T15:52:20Z">
+    <test name="Test" duration-ms="42964" started-at="2023-06-08T13:56:44Z" finished-at="2023-06-08T13:57:26Z">
+      <class name="scripts.AutomationDemo">
+        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:[AutomationDemo passed=0 failed=0 skipped=0]]" name="beforeSuite" is-config="true" duration-ms="16" started-at="2023-06-08T19:26:44Z" finished-at="2023-06-08T19:26:44Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeSuite -->
-        <test-method status="PASS" signature="testCaseFlow(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:[TC02_TakamolE2E_IICServiceRequest passed=0 failed=0 skipped=0]]" name="testCaseFlow" duration-ms="19642" started-at="2023-04-21T15:52:20Z" finished-at="2023-04-21T15:52:39Z">
+        <test-method status="PASS" signature="testCaseFlow(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:[AutomationDemo passed=0 failed=0 skipped=0]]" name="testCaseFlow" duration-ms="42746" started-at="2023-06-08T19:26:44Z" finished-at="2023-06-08T19:27:26Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[CHROME]]>
+                <![CDATA[AutomationDemo]]>
               </value>
             </param>
             <param index="1">
               <value>
-                <![CDATA[TC02_TakamolE2E_IICServiceRequest]]>
+                <![CDATA[https://pjjb.appian.community/suite/sites/nexus-intranet]]>
               </value>
             </param>
             <param index="2">
               <value>
-                <![CDATA[https://takamol-qa.appcino-tech.com:433/rehab/auth/login]]>
+                <![CDATA[demo_user]]>
               </value>
             </param>
             <param index="3">
               <value>
-                <![CDATA[automationtaheel@gmail.com]]>
-              </value>
-            </param>
-            <param index="4">
-              <value>
-                <![CDATA[UXdlcnR5QDEyMw==]]>
+                <![CDATA[demouser1]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testCaseFlow -->
-        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:[TC02_TakamolE2E_IICServiceRequest passed=0 failed=0 skipped=0]]" name="tearDown" is-config="true" duration-ms="103" started-at="2023-04-21T15:52:39Z" finished-at="2023-04-21T15:52:39Z">
+        <test-method status="PASS" signature="tearDown(org.testng.ITestResult)[pri:0, instance:[AutomationDemo passed=0 failed=0 skipped=0]]" name="tearDown" is-config="true" duration-ms="180" started-at="2023-06-08T19:27:26Z" finished-at="2023-06-08T19:27:26Z">
           <params>
             <param index="0">
               <value>
-                <![CDATA[[TestResult name=testCaseFlow on [TC02_TakamolE2E_IICServiceRequest passed=0 failed=0 skipped=0] status=SUCCESS method=TC02_TakamolE2E_IICServiceRequest.testCaseFlow(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:[TC02_TakamolE2E_IICServiceRequest passed=0 failed=0 skipped=0]] output={null}]]]>
+                <![CDATA[[TestResult name=testCaseFlow on [AutomationDemo passed=0 failed=0 skipped=0] status=SUCCESS method=AutomationDemo.testCaseFlow(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:[AutomationDemo passed=0 failed=0 skipped=0]] output={null}]]]>
               </value>
             </param>
           </params>
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->
-        <test-method status="PASS" signature="sendEmail(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:[TC02_TakamolE2E_IICServiceRequest passed=0 failed=0 skipped=0]]" name="sendEmail" is-config="true" duration-ms="13993" started-at="2023-04-21T15:52:39Z" finished-at="2023-04-21T15:52:53Z">
+        <test-method status="PASS" signature="getResult(org.testng.ITestResult)[pri:0, instance:[AutomationDemo passed=0 failed=0 skipped=0]]" name="getResult" is-config="true" duration-ms="0" started-at="2023-06-08T19:27:26Z" finished-at="2023-06-08T19:27:26Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[[TestResult name=testCaseFlow on [AutomationDemo passed=0 failed=0 skipped=0] status=SUCCESS method=AutomationDemo.testCaseFlow(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:[AutomationDemo passed=0 failed=0 skipped=0]] output={null}]]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- getResult -->
+        <test-method status="PASS" signature="sendMail(java.lang.String, java.lang.String, java.lang.String, java.lang.String)[pri:0, instance:[AutomationDemo passed=0 failed=0 skipped=0]]" name="sendMail" is-config="true" duration-ms="5165" started-at="2023-06-08T19:27:27Z" finished-at="2023-06-08T19:27:32Z">
           <params>
             <param index="0">
               <value>
@@ -78,8 +84,8 @@
           </params>
           <reporter-output>
           </reporter-output>
-        </test-method> <!-- sendEmail -->
-      </class> <!-- takamol.TC02_TakamolE2E_IICServiceRequest -->
+        </test-method> <!-- sendMail -->
+      </class> <!-- scripts.AutomationDemo -->
     </test> <!-- Test -->
   </suite> <!-- Suite -->
 </testng-results>
